@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Productos</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="regresar()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
+    <ion-item>
+      <ion-label position="floating">Nombre del Producto</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Valor Unitario</ion-label>
+      <ion-input formControlName="valorUnitario" type="number"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="productoForm.invalid">
+      Agregar Producto
+    </ion-button>
+  </form>
+
+  <ion-searchbar [(ngModel)]="terminoBusqueda" (ionInput)="filtrarProductos($event)"></ion-searchbar>
+
+  <!-- Lista de productos disponibles -->
+  <ion-list>
+    <ion-item *ngFor="let producto of productosFiltrados">
+      <ion-label>
+        <h2>{{ producto.nombre }}</h2>
+        <p>Valor Unitario: {{ producto.valorUnitario | currency }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button fill="clear" color="danger" (click)="eliminarProducto(producto.id!)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Clientes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/clientes']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-searchbar (ionInput)="filtrarClientes($event)"></ion-searchbar>
+    <ion-item *ngFor="let cliente of clientesFiltrados">
+      <ion-label slot="start"> <!-- Mueve la información a la izquierda -->
+        <h2>{{ cliente.nombre }}</h2>
+        <p>Barrio: {{ cliente.barrio }}</p>
+      </ion-label>
+      <div slot="end" class="button-container"> <!-- Mueve los botones a la derecha -->
+        <ion-button
+          fill="clear"
+          color="danger"
+          (click)="eliminarCliente(cliente.id!)"
+        >
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+        <ion-button
+          fill="clear"
+          color="primary"
+          [routerLink]="['/clientes', cliente.id]"
+        >
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

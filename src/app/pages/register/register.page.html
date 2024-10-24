@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrarse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Formulario de registro -->
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email" [formControlName]="'email'"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="formControls['email'].invalid && formControls['email'].touched">
+      Ingrese un correo electrónico válido.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [formControlName]="'password'"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="formControls['password'].invalid && formControls['password'].touched">
+      La contraseña debe tener al menos 6 caracteres.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Confirmar Contraseña</ion-label>
+      <ion-input type="password" [formControlName]="'confirmPassword'"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="formControls['confirmPassword'].invalid && formControls['confirmPassword'].touched">
+      La confirmación debe coincidir con la contraseña.
+    </ion-note>
+
+    <ion-button expand="full" type="submit" [disabled]="registerForm.invalid || loading">
+      {{ loading ? 'Registrando...' : 'Registrarse' }}
+    </ion-button>
+  </form>
+
+  <!-- Mensaje de error si ocurre -->
+  <ion-text color="danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </ion-text>
+
+  <!-- Botón para redirigir al login -->
+  <ion-button expand="full" color="light" [routerLink]="['/login']">
+    Ya tienes una cuenta? Iniciar Sesión
+  </ion-button>
+</ion-content>
